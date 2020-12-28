@@ -1,4 +1,4 @@
 import React from 'react';
 
-const Message = ({text}) => <p><span>{text}</span></p>;
+const Message = ({user, msg}) => <p>{user}: <span>{msg}</span></p>;
 export default Message;

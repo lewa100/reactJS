@@ -1,31 +1,50 @@
 import React from 'react';
 
-import Message from './Message.jsx';
+import MessageField from './MessageField.jsx';
+import InputMessage from './InputMessage.jsx';
 
 class App extends React.Component {
 constructor(props) {
     super(props);
     this.state = {
-        todos: ["Первое сообщение", "Второе сообщение"]
+        chat: [{user:"Bob", msg:"HI"},{user:"Olga",msg:"Hello"}],
+        message: '',
+        flag: false
     };
+    this.sendMessage = this.sendMessage.bind(this);
 }
 
-click(){
-    const todos = this.state.todos;
-    todos.push("Нормально");
+sendMessage(user, msg){
+    this.state.chat.push({user, msg});
     this.setState({
-        todos
+        message: {user, msg},
     })
+    if(user != "Bot"){
+        this.setState({
+            flag: false,
+        })
+    }
 }
 
-  render() {
-      const todos = this.state.todos;
+componentDidUpdate(prevProps, prevState) {
+    console.log(prevState.message , this.state.message, this.state.flag);
+    if(this.state.flag != true&& 
+        this.state.message.msg != ""){
+        this.timer = setTimeout(() => {
+            this.sendMessage("Bot", "I don't understand!");
+          }, 500);
+        this.setState({
+            flag:true
+        })
+    }
+}
+
+render() {
+      const chat = this.state.chat;
     return (
         <main>
-            <button onClick={() => this.click()}>
-                Add Message 
-            </button>
-            {todos.map((text) => <Message text={text}/>)}
+            <MessageField chat = {chat} />
+            <InputMessage sendMessage={this.sendMessage}/>
         </main>
     )
   }
