@@ -2,12 +2,15 @@ import React from 'react';
 
 import MessageField from './MessageField.jsx';
 import InputMessage from './InputMessage.jsx';
+import Header from './Header.jsx';
+import '../styles/styles.css'
+import ChatList from './ChatList.jsx';
 
-class App extends React.Component {
+class Layout extends React.Component {
 constructor(props) {
     super(props);
     this.state = {
-        chat: [{user:"Bob", msg:"HI"},{user:"Olga",msg:"Hello"}],
+        chat: [],
         message: '',
         flag: false
     };
@@ -26,8 +29,7 @@ sendMessage(user, msg){
     }
 }
 
-componentDidUpdate(prevProps, prevState) {
-    console.log(prevState.message , this.state.message, this.state.flag);
+componentDidUpdate() {
     if(this.state.flag != true&& 
         this.state.message.msg != ""){
         this.timer = setTimeout(() => {
@@ -43,11 +45,17 @@ render() {
       const chat = this.state.chat;
     return (
         <main>
-            <MessageField chat = {chat} />
-            <InputMessage sendMessage={this.sendMessage}/>
+            <div class="layout">
+                <Header />
+                <div class="block-chat">
+                    <ChatList />
+                    <MessageField chat = {chat} />
+                </div>
+                <InputMessage sendMessage={this.sendMessage}/>
+            </div>
         </main>
     )
   }
 }
 
-export default App;
+export default Layout;

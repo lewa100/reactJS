@@ -20,14 +20,19 @@ module.exports = {
     },
     module: {
         rules: [{
-            test: /\.jsx?$/,
-            include: path.resolve(__dirname, 'src'),
-            exclude: path.resolve(__dirname, 'node_modules'),
-            loader: 'babel-loader',
-            options: {
-                presets: ['@babel/env', '@babel/react']
-            }
-        }]
+                test: /\.jsx?$/,
+                include: path.resolve(__dirname, 'src'),
+                exclude: path.resolve(__dirname, 'node_modules'),
+                loader: 'babel-loader',
+                options: {
+                    presets: ['@babel/env', '@babel/react']
+                }
+            },
+            {
+                test: /\.css$/,
+                use: ['style-loader', 'css-loader'],
+            },
+        ]
     },
     plugins: [
         new HtmlWebpackPlugin({
