@@ -18,6 +18,12 @@
     flex-direction: column;
 }
 
+.profile {
+    display: flex;
+    flex-direction: column;
+    align-self: flex-end;
+}
+
 .block-chat {
     display: flex;
     flex-direction: row;
@@ -27,8 +33,16 @@
 .header {
     background-color: bisque;
     margin: 10px auto 5px;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.header-text {
     vertical-align: middle;
     text-align: center;
+    align-self: flex-start;
+    width: 100%;
 }
 
 .message {

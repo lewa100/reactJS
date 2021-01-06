@@ -3,6 +3,7 @@ const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
+    devtool: 'inline-source-map',
     context: path.resolve(__dirname, 'src'),
     entry: './index.jsx',
     output: {
@@ -11,12 +12,16 @@ module.exports = {
         publicPath: ''
     },
     devServer: {
-        historyApiFallback: true,
-        contentBase: path.resolve(__dirname, 'static', 'build'),
         open: true,
         compress: true,
         hot: true,
         port: 8888,
+        historyApiFallback: {
+            rewrites: [{
+                from: /\/(\d\.)?app\.js(\.map)?/,
+                to: context => context.match[0]
+            }]
+        }
     },
     module: {
         rules: [{
