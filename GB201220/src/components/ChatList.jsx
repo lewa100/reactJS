@@ -4,6 +4,7 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import { Link } from 'react-router-dom';
+import { connect } from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -13,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ChatList(props) {
+const ChatList = (props)=> {
   const classes = useStyles();
   const chList = props['list'];
   var listItems = Object.keys(chList).map((key) => {
@@ -34,3 +35,10 @@ export default function ChatList(props) {
     </div>
   );
 }
+
+const mapStateToProps = state => {
+  return {
+  };
+};
+
+export default connect(mapStateToProps)(ChatList);
