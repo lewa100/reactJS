@@ -1,5 +1,10 @@
 import {
-    ADD_CHAT
+    ADD_CHAT,
+    UPDATE_CHATID,
+    UPDATE_MESSAGE,
+    UPDATE_CHATID_TMP,
+    SEND_MESSAGE,
+    UPDATE_FLAG
 } from '../actions';
 import initState from "../state";
 
@@ -10,13 +15,42 @@ export default function reducer(state = initState, action) {
             let chId = Math.max.apply(null, idList) + 1;
             return {...state,
                 chats: {
-                    ...chats,
+                    ...state.chats,
                     [chId]: {
                         title: `Чат ${chId}`,
                         chat: []
                     },
                 }
             }
+        case SEND_MESSAGE:
+            let { chats, chatId, flag, tmpChatId, msgList } = state;
+            console.log(flag, tmpChatId);
+            if (action.user != "Bot") {
+                flag = false;
+            } else {
+                chatId = tmpChatId;
+            }
+            const msgId = Object.keys(msgList).length + 1;
+            chats[`${chatId}`].chat.push(msgId);
+
+            return {...state,
+                message: { user: action.user, msg: action.msg },
+                flag,
+                chatId,
+                msgList: {
+                    ...state.msgList,
+                    [msgId]: { user: action.user, msg: action.msg },
+                },
+                chats
+            }
+        case UPDATE_CHATID:
+            return {...state, chatId: action.chatId }
+        case UPDATE_CHATID_TMP:
+            return {...state, tmpChatId: action.tmpChatId }
+        case UPDATE_FLAG:
+            return {...state, flag: action.flag }
+        case UPDATE_MESSAGE:
+            return {...state, message: { user: action.user, msg: action.msg } }
             /// ///////////////////////////////////
         default:
             return state

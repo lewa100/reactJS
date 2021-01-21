@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
 
 const ChatList = (props)=> {
   const classes = useStyles();
-  const chList = props['list'];
+  const chList = props.chats;
   var listItems = Object.keys(chList).map((key) => {
     if (key != 0) {
       return (<Link to={`/chat/${key}/`}>
@@ -36,8 +36,10 @@ const ChatList = (props)=> {
   );
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = reducer => {
+  const store = reducer.ChatReducer
   return {
+    chats: store.chats
   };
 };
 

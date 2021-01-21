@@ -1,4 +1,6 @@
 import React from 'react';
+import {connect} from 'react-redux';
+import {sendMessage} from '../redux/actions';
 
 class InputMessage extends React.Component {
     constructor(props) {
@@ -15,14 +17,31 @@ class InputMessage extends React.Component {
         this.setState({value: event.target.value});
       }
     
-      handleSubmit(event) {
-        let value = this.state.value;
-        if (value != ''){
-          this.props.sendMessage("User", value);
-          this.state.value = '';
-        }
-        event.preventDefault();
+    handleSubmit(event) {
+      let value = this.state.value;
+      if (value != ''){
+        this.props.SendMessage("User", value);
+        this.setState({value: ''});
       }
+      event.preventDefault();
+    }
+
+  //   sendMessage(user, msg){
+  //     // const {tmpChatId} = this.state;
+  //     let {chats,chatId, flag,tmpChatId} = this.props;
+  //     if(user != "Bot"){
+  //         // this.setState({
+  //         //     flag: false,
+  //         // })
+  //     }else {
+  //         chatId = tmpChatId;
+  //     }
+  //     // const msgId = Object.keys(msgList).length + 1;
+  //     // chats[`${chatId}`].chat.push(msgId);
+  //     UpdateMessage(user, msg);
+  //     AddMsgToList(user,msg);
+  //     UpdateChats(chats);
+  // }
 
     render() {
       return (
@@ -36,5 +55,17 @@ class InputMessage extends React.Component {
       )
     }
   }
+
+  const mapStateToProps = reducer => {
+    const store = reducer.ChatReducer
+    return {
+    };
+};
+
+const mapDispatchToProps = dispatch => {
+    return {
+      SendMessage: (user, msg) => dispatch(sendMessage(user, msg)),
+    };
+  };
   
-export default InputMessage;
+export default connect(mapStateToProps, mapDispatchToProps)(InputMessage);
