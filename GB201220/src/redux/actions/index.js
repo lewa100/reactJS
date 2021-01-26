@@ -1,7 +1,6 @@
 export const ADD_CHAT = 'ADD_CHAT';
 export const UPDATE_CHATID = 'UPDATE_CHATID';
 export const UPDATE_CHATID_TMP = 'UPDATE_CHATID_TMP';
-export const UPDATE_FLAG = 'UPDATE_FLAG';
 export const UPDATE_MESSAGE = 'UPDATE_MESSAGE';
 export const SEND_MESSAGE = 'SEND_MESSAGE';
 
@@ -14,11 +13,6 @@ export const updateChatId = (chatId) => ({
 export const updateChatId_tmp = (tmpChatId) => ({
     type: UPDATE_CHATID_TMP,
     tmpChatId
-});
-
-export const updateFlag = (flag) => ({
-    type: UPDATE_FLAG,
-    flag
 });
 
 export const updateMessage = (user, msg) => ({

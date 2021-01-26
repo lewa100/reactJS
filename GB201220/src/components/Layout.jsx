@@ -10,24 +10,12 @@ import Profile from './Profile.jsx';
 import {
     updateChatId,
     sendMessage,
-    updateChatId_tmp,
-    updateFlag
+    updateChatId_tmp
 } from "../redux/actions";
 
 class Layout extends React.Component {
 constructor(props) {
     super(props);
-}
-
-componentDidUpdate() {
-    if(this.props.flag != true && 
-        this.props.message.msg != ""){
-        this.props.UpdateChatId_tmp(this.props.chatId);
-        this.props.UpdateFlag(true);
-        this.timer = setTimeout(() => {
-            this.props.SendMessage("Bot", "I don't understand!");
-          }, 500);
-    }
 }
 
 render() {
@@ -69,7 +57,6 @@ const mapStateToProps = reducer => {
         msgList: store.msgList,
         chats: store.chats, 
         tmpChatId: store.tmpChatId,
-        flag: store.flag,
         message: store.message,
     };
 };
@@ -78,8 +65,7 @@ const mapDispatchToProps = dispatch => {
     return {
         UpdateChatId: (chatId) => dispatch(updateChatId(chatId)),
         SendMessage: (user, msg) => dispatch(sendMessage(user, msg)),
-        UpdateChatId_tmp: (tmpChatId) => dispatch(updateChatId_tmp(tmpChatId)),
-        UpdateFlag: (flag) => dispatch(updateFlag(flag))
+        UpdateChatId_tmp: (tmpChatId) => dispatch(updateChatId_tmp(tmpChatId))
     };
   };
 

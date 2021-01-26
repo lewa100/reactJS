@@ -3,8 +3,7 @@ import {
     UPDATE_CHATID,
     UPDATE_MESSAGE,
     UPDATE_CHATID_TMP,
-    SEND_MESSAGE,
-    UPDATE_FLAG
+    SEND_MESSAGE
 } from '../actions';
 import initState from "../state";
 
@@ -23,11 +22,8 @@ export default function reducer(state = initState, action) {
                 }
             }
         case SEND_MESSAGE:
-            let { chats, chatId, flag, tmpChatId, msgList } = state;
-            console.log(flag, tmpChatId);
-            if (action.user != "Bot") {
-                flag = false;
-            } else {
+            let { chats, chatId, tmpChatId, msgList } = state;
+            if (action.user === "Bot") {
                 chatId = tmpChatId;
             }
             const msgId = Object.keys(msgList).length + 1;
@@ -35,7 +31,6 @@ export default function reducer(state = initState, action) {
 
             return {...state,
                 message: { user: action.user, msg: action.msg },
-                flag,
                 chatId,
                 msgList: {
                     ...state.msgList,
@@ -47,8 +42,6 @@ export default function reducer(state = initState, action) {
             return {...state, chatId: action.chatId }
         case UPDATE_CHATID_TMP:
             return {...state, tmpChatId: action.tmpChatId }
-        case UPDATE_FLAG:
-            return {...state, flag: action.flag }
         case UPDATE_MESSAGE:
             return {...state, message: { user: action.user, msg: action.msg } }
             /// ///////////////////////////////////

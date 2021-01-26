@@ -7,7 +7,6 @@ const state = {
     message: { user: '', msg: '' },
     msgList: {},
     chatId: 1,
-    flag: false,
     tmpChatId: 0,
     profile: {
         nickname: "User",
