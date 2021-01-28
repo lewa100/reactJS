@@ -1,10 +1,9 @@
 const state = {
     chats: {
-        0: { title: "Профиль", chat: [] },
-        1: { title: "Чат 1", chat: [] },
-        2: { title: "Чат 2", chat: [] }
+        0: { title: "Профиль", chat: [], selected: false },
+        1: { title: "Чат 1", chat: [], selected: false },
+        2: { title: "Чат 2", chat: [], selected: false }
     },
-    message: { user: '', msg: '' },
     msgList: {},
     chatId: 1,
     tmpChatId: 0,

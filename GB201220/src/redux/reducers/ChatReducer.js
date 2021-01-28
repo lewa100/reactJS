@@ -1,7 +1,9 @@
+import { colors } from '@material-ui/core';
 import {
     ADD_CHAT,
+    DELETE_CHAT,
     UPDATE_CHATID,
-    UPDATE_MESSAGE,
+    UPDATE_CHAT_SELECTED,
     UPDATE_CHATID_TMP,
     SEND_MESSAGE
 } from '../actions';
@@ -17,33 +19,64 @@ export default function reducer(state = initState, action) {
                     ...state.chats,
                     [chId]: {
                         title: `Чат ${chId}`,
-                        chat: []
+                        chat: [],
+                        selected: false
                     },
                 }
             }
-        case SEND_MESSAGE:
-            let { chats, chatId, tmpChatId, msgList } = state;
-            if (action.user === "Bot") {
-                chatId = tmpChatId;
-            }
-            const msgId = Object.keys(msgList).length + 1;
-            chats[`${chatId}`].chat.push(msgId);
 
-            return {...state,
-                message: { user: action.user, msg: action.msg },
-                chatId,
-                msgList: {
-                    ...state.msgList,
-                    [msgId]: { user: action.user, msg: action.msg },
-                },
-                chats
+        case DELETE_CHAT:
+            let { chats, msgList } = state;
+            if (chats[action.chatId] != undefined &&
+                Object.keys(chats).length > 2) {
+                const tmpChats = Object.assign({}, chats);
+                const id = action.chatId;
+                delete tmpChats[id];
+
+                const tmpMsgList = Object.assign({}, msgList);
+                chats[action.chatId].chat.forEach(id => {
+                    delete tmpMsgList[id];
+                });
+                return {
+                    ...state,
+                    msgList: tmpMsgList,
+                    chats: tmpChats
+                }
+            } else {
+                return state;
+            }
+        case SEND_MESSAGE:
+            if (action.user != "") {
+                let { chats, chatId, tmpChatId, msgList } = state;
+                if (action.user === "Bot") {
+                    chatId = tmpChatId;
+                }
+                const msgId = Object.keys(msgList).length + 1;
+                chats[`${chatId}`].chat.push(msgId);
+
+                return {...state,
+                    chatId,
+                    msgList: {
+                        ...state.msgList,
+                        [msgId]: { user: action.user, msg: action.msg },
+                    },
+                    chats
+                }
             }
         case UPDATE_CHATID:
             return {...state, chatId: action.chatId }
         case UPDATE_CHATID_TMP:
             return {...state, tmpChatId: action.tmpChatId }
-        case UPDATE_MESSAGE:
-            return {...state, message: { user: action.user, msg: action.msg } }
+        case UPDATE_CHAT_SELECTED:
+            return {...state,
+                chats: {
+                    ...state.chats,
+                    [action.chatId]: {
+                        ...state.chats[action.chatId],
+                        selected: action.selected
+                    },
+                }
+            }
             /// ///////////////////////////////////
         default:
             return state

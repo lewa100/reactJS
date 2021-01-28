@@ -57,7 +57,6 @@ const mapStateToProps = reducer => {
         msgList: store.msgList,
         chats: store.chats, 
         tmpChatId: store.tmpChatId,
-        message: store.message,
     };
 };
 

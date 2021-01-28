@@ -26,24 +26,7 @@ class InputMessage extends React.Component {
       event.preventDefault();
     }
 
-  //   sendMessage(user, msg){
-  //     // const {tmpChatId} = this.state;
-  //     let {chats,chatId, flag,tmpChatId} = this.props;
-  //     if(user != "Bot"){
-  //         // this.setState({
-  //         //     flag: false,
-  //         // })
-  //     }else {
-  //         chatId = tmpChatId;
-  //     }
-  //     // const msgId = Object.keys(msgList).length + 1;
-  //     // chats[`${chatId}`].chat.push(msgId);
-  //     UpdateMessage(user, msg);
-  //     AddMsgToList(user,msg);
-  //     UpdateChats(chats);
-  // }
-
-    render() {
+  render() {
       return (
         <form onSubmit={this.handleSubmit} ref="form">
             <label>
@@ -56,16 +39,10 @@ class InputMessage extends React.Component {
     }
   }
 
-  const mapStateToProps = reducer => {
-    const store = reducer.ChatReducer
-    return {
-    };
-};
-
 const mapDispatchToProps = dispatch => {
     return {
       SendMessage: (user, msg) => dispatch(sendMessage(user, msg)),
     };
   };
   
-export default connect(mapStateToProps, mapDispatchToProps)(InputMessage);
+export default connect(null, mapDispatchToProps)(InputMessage);
