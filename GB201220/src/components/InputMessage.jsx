@@ -1,4 +1,6 @@
 import React from 'react';
+import {connect} from 'react-redux';
+import {sendMessage} from '../redux/actions';
 
 class InputMessage extends React.Component {
     constructor(props) {
@@ -15,16 +17,16 @@ class InputMessage extends React.Component {
         this.setState({value: event.target.value});
       }
     
-      handleSubmit(event) {
-        let value = this.state.value;
-        if (value != ''){
-          this.props.sendMessage("User", value);
-          this.state.value = '';
-        }
-        event.preventDefault();
+    handleSubmit(event) {
+      let value = this.state.value;
+      if (value != ''){
+        this.props.SendMessage("User", value);
+        this.setState({value: ''});
       }
+      event.preventDefault();
+    }
 
-    render() {
+  render() {
       return (
         <form onSubmit={this.handleSubmit} ref="form">
             <label>
@@ -36,5 +38,11 @@ class InputMessage extends React.Component {
       )
     }
   }
+
+const mapDispatchToProps = dispatch => {
+    return {
+      SendMessage: (user, msg) => dispatch(sendMessage(user, msg)),
+    };
+  };
   
-export default InputMessage;
+export default connect(null, mapDispatchToProps)(InputMessage);

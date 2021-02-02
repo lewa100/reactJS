@@ -1,31 +1,37 @@
 import React from 'react';
+import {connect} from 'react-redux';
 import '../styles/styles.css'
 
 class Profile extends React.Component {
     render() {
+        const {profile} = this.props;
         return (
             <form class="message-field">  
             <label>
-                Nickname: User
+                Nickname: {profile.nickname}
             </label><br /><br />
             <label>
-                Пол:	Мужской
+                Пол:	{profile.sex}
             </label><br /><br />
             <label>
-                Последний раз в чате:	Сейчас онлайн
+                Последний раз в чате:	{profile.last_vizit}
             </label><br /><br />
             <label>
-                Сообщений в «общак»:	48 297
+                Сообщений всего:	{profile.countAllMsg}
             </label><br /><br />
             <label>
-                Сообщений всего:	51 482
-            </label><br /><br />
-            <label>
-                Входов в чат:	547
+                Входов в чат:	{profile.connectToChat}
             </label>
             </form>
         )
       }
 }
 
-export default Profile;
+const mapStateToProps = reducer => {
+    const store = reducer.ChatReducer
+    return {
+        profile: store.profile
+    };
+};
+
+export default connect(mapStateToProps)(Profile);
