@@ -1,8 +1,24 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import '../styles/styles.css'
+import '../styles/styles.css';
+import {loadProfile} from '../redux/actions';
 
 class Profile extends React.Component {
+    componentDidMount() {
+        fetch('/api/profile.json'
+        ).then(body => body.json()).
+        then(item => {
+                let prof = {
+                                nickname:item.nickname,
+                                sex:item.sex,
+                                last_vizit:item.last_vizit,
+                                countAllMsg:item.countAllMsg,
+                                connectToChat:item.connectToChat
+                        }
+                this.props.LoadProfile(prof);
+        })
+    }
+
     render() {
         const {profile} = this.props;
         return (
@@ -34,4 +50,10 @@ const mapStateToProps = reducer => {
     };
 };
 
-export default connect(mapStateToProps)(Profile);
+const mapDispatchToProps = dispatch => {
+    return {
+      LoadProfile: (profile) => dispatch(loadProfile(profile)),
+    };
+  };
+
+export default connect(mapStateToProps, mapDispatchToProps)(Profile);
