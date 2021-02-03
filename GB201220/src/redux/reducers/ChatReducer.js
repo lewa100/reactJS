@@ -1,11 +1,12 @@
-import { colors } from '@material-ui/core';
 import {
     ADD_CHAT,
     DELETE_CHAT,
     UPDATE_CHATID,
     UPDATE_CHAT_SELECTED,
     UPDATE_CHATID_TMP,
-    SEND_MESSAGE
+    SEND_MESSAGE,
+    SEND_MESSAGE_FOR_LOADER,
+    LOADER_PROFILE
 } from '../actions';
 import initState from "../state";
 
@@ -63,8 +64,44 @@ export default function reducer(state = initState, action) {
                     chats
                 }
             }
+        case SEND_MESSAGE_FOR_LOADER:
+            if (action.user != "") {
+                let { chats, chatId, tmpChatId, msgList } = state;
+                if (action.user === "Bot") {
+                    chatId = tmpChatId;
+                }
+                if (chats.hasOwnProperty(`${action.chatId}`)) {
+                    chats[`${action.chatId}`].chat.push(action.msgId);
+                } else {
+                    return {...state,
+                        chats: {
+                            ...state.chats,
+                            [action.chatId]: {
+                                title: `Чат ${action.chatId}`,
+                                chat: [action.msgId],
+                                selected: false
+                            },
+                        },
+                        msgList: {
+                            ...state.msgList,
+                            [action.msgId]: { user: action.user, msg: action.msg },
+                        },
+                    }
+                }
+
+                return {...state,
+                    chatId: action.chatId,
+                    msgList: {
+                        ...state.msgList,
+                        [action.msgId]: { user: action.user, msg: action.msg },
+                    },
+                    chats
+                }
+            }
         case UPDATE_CHATID:
             return {...state, chatId: action.chatId }
+        case LOADER_PROFILE:
+            return {...state, profile: action.profile }
         case UPDATE_CHATID_TMP:
             return {...state, tmpChatId: action.tmpChatId }
         case UPDATE_CHAT_SELECTED:

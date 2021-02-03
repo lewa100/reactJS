@@ -5,6 +5,10 @@ export const UPDATE_CHATID_TMP = 'UPDATE_CHATID_TMP';
 export const UPDATE_CHAT_SELECTED = 'UPDATE_CHAT_SELECTED';
 export const SEND_MESSAGE = 'SEND_MESSAGE';
 
+//--------------------------------------------
+export const SEND_MESSAGE_FOR_LOADER = 'SEND_MESSAGE_FOR_LOADER';
+export const LOADER_PROFILE = 'LOADER_PROFILE';
+
 //||||UPDATE ITEM||||
 export const updateChatId = (chatId) => ({
     type: UPDATE_CHATID,
@@ -37,4 +41,19 @@ export const sendMessage = (user, msg) => ({
     type: SEND_MESSAGE,
     user,
     msg
+});
+
+//---------------------------------------------
+//LOADER API
+export const sendMessageForLoader = (chatId, msgId, user, msg) => ({
+    type: SEND_MESSAGE_FOR_LOADER,
+    chatId,
+    msgId,
+    user,
+    msg
+});
+
+export const loadProfile = (profile) => ({
+    type: LOADER_PROFILE,
+    profile
 });

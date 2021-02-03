@@ -5,12 +5,14 @@ import { Link } from 'react-router-dom';
 import { Button } from '@material-ui/core';
 import {addChat} from "../redux/actions";
 import { connect } from "react-redux";
+import PushToggle from '../components/PushToggle/index.jsx';
 
 class Header extends React.Component {
     render() {
       const {chatId, chats, profile} = this.props;
         return (
           <div className="header">
+            <PushToggle />
             <div>
               <Button variant="contained" color="secondary" onClick={this.props.AddChat}>
                   +

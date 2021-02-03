@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 
 import Message from './Message.jsx';
 import '../styles/styles.css';
+import {sendMessage, sendMessageForLoader} from '../redux/actions';
 
 class MessageField extends React.Component {
     constructor(props) {
@@ -26,6 +27,18 @@ class MessageField extends React.Component {
         return chList;
     }
 
+    componentDidMount() {
+        fetch('/api/messages.json'
+        ).then(body => body.json()).
+        then(json => {
+            json.forEach(item => {
+                this.props.SendMessageForLoader(item.chatId,item.msgId,item.user,item.msg);
+                // console.log(item.msgId, item.chatId,item.user,item.msg);
+            })
+        })
+    }
+ 
+
     render() {
         const {chats, chatId} = this.props;
         const chat = this.getChat(chats[`${chatId}`].chat);
@@ -46,4 +59,11 @@ const mapStateToProps = reducer => {
     };
   };
 
-export default connect(mapStateToProps)(MessageField);
+  const mapDispatchToProps = dispatch => {
+    return {
+      SendMessage: (user, msg) => dispatch(sendMessage(user, msg)),
+      SendMessageForLoader: (chatId,msgId,user,msg) => dispatch(sendMessageForLoader(chatId,msgId,user,msg))
+    };
+  };
+
+export default connect(mapStateToProps,mapDispatchToProps )(MessageField);

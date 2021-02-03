@@ -1,0 +1,18 @@
+[
+    { "msgId": 1, "chatId": 1, "msg": "Привет!", "user": "user" },
+    { "msgId": 2, "chatId": 2, "msg": "Привет!", "user": "Bot" },
+    { "msgId": 3, "chatId": 2, "msg": "Как дела?", "user": "user" },
+    { "msgId": 4, "chatId": 3, "msg": "Привет!", "user": "user" },
+    { "msgId": 5, "chatId": 5, "msg": "Хорошо", "user": "Bot" },
+    { "msgId": 6, "chatId": 5, "msg": "Как дела?", "user": "Bot" },
+    { "msgId": 7, "chatId": 4, "msg": "Привет!", "user": "user" },
+    { "msgId": 8, "chatId": 4, "msg": "Привет!", "user": "user" },
+    { "msgId": 9, "chatId": 4, "msg": "Как дела?", "user": "user" },
+    { "msgId": 10, "chatId": 3, "msg": "Привет!", "user": "Bot" },
+    { "msgId": 11, "chatId": 2, "msg": "Как дела?", "user": "Bot" },
+    { "msgId": 12, "chatId": 2, "msg": "Хорошо", "user": "user" },
+    { "msgId": 13, "chatId": 2, "msg": "Привет!", "user": "user" },
+    { "msgId": 14, "chatId": 1, "msg": "Как дела?", "user": "user" },
+    { "msgId": 15, "chatId": 1, "msg": "Привет!", "user": "user" },
+    { "msgId": 16, "chatId": 1, "msg": "Хорошо", "user": "Bot" }
+]
